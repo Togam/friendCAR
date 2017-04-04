@@ -4,7 +4,10 @@ import java.sql.DriverManager;
 import java.sql.Connection;
 
 /**
- * @author six Classe ConnectionBDD : classe qui configure l'accès à la bdd.
+ * @author six
+ * 
+ *         Classe DBconfig : classe permettant la configuration et la connexion
+ *         � la bdd.
  */
 public class DBconfig {
 
@@ -14,9 +17,6 @@ public class DBconfig {
 
 	/**
 	 * @param username
-	 *            permet de changer le nom de l'utilisateur dans le Main plutôt
-	 *            que de l'écrire en dur dans le programme (problème de
-	 *            sécurité)
 	 */
 	public static void setUsername(String username) {
 		DBconfig.username = username;
@@ -24,22 +24,20 @@ public class DBconfig {
 
 	/**
 	 * @param password
-	 *            permet de changer le mot de passe de l'utilisateur dans le
-	 *            Main plutôt que de l'écrire en dur dans le programme (problème
-	 *            de sécurité)
 	 */
 	public static void setPassword(String password) {
 		DBconfig.password = password;
 	}
 
 	/**
-	 * @return la connection à la bdd
+	 * Connection � la bdd
 	 * 
-	 *         Méthode qui permet de se connecter à la base de données.
+	 * @return la connection à la bdd
 	 */
 	public static Connection getConnection() {
 		if (c == null) {
 			try {
+				Class.forName("com.mysql.jdbc.Driver");   
 				c = DriverManager.getConnection("jdbc:mysql://webtp.fil.univ-lille1.fr/six", username, password);
 			} catch (Exception e) {
 				System.out.println(e);
