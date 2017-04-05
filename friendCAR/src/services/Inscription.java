@@ -34,7 +34,7 @@ public class Inscription {
 		try {
 			return "<html>"
 					+"<body>"
-					+"<h1>\" FriendCAR, le réseau social des geeks! </h1>" 
+					+"<h1>FriendCAR, le réseau social des geeks!</h1>" 
 					+"<meta charset=\"utf-8\">"
 					+"<div class=\"tab-content-inner\" data-content=\"signup\">"
 					+"<form method=\"post\" action=\"fonctions/gestion_inscritption.php\">"
