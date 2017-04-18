@@ -41,7 +41,7 @@ public class Connection {
 	public String formulaireConnection() {
 		return "<html> <title>" + "Friend CAR" + "</title>" + "<body><h1>" + "Friend CAR" + "</body></h1>"
 				+ "<form action=\"validation\"> <label for=\"pseudo\">Pseudo :</label><input name=\"pseudo\" type=\"text\" id=\"pseudo\" /><br />\n"
-				+ "	<label for=\"password\">Mot de Passe :</label><input type=\"password\" name=\"password\" id=\"password\" />\n\n"
+				+ "	<label for=\"motdepasse\">Mot de Passe :</label><input type=\"motdepasse\" name=\"motdepasse\" id=\"motdepasse\" />\n\n"
 				+ "<input type=\"submit\" value=\"Submit\" \n /> </form></html>";
 	}
 

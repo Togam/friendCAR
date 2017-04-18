@@ -25,48 +25,50 @@ import persistance.DBconfig;
 public class ValidationCo {
 
 	private User user;
-	
+
 	@Context
-    private UriInfo context;
+	private UriInfo context;
 
-    @Context
-    private HttpServletRequest request;
+	@Context
+	private HttpServletRequest request;
 
-    @Context
-    private HttpServletResponse response;
-	
-    @GET
-	public Response Connection(@QueryParam("pseudo") String pseudo, @QueryParam("motdepasse") String mdp){
-		if(validerCo(pseudo, mdp)){
+	@Context
+	private HttpServletResponse response;
+
+	@GET
+	public Response Connection(@QueryParam("pseudo") String pseudo, @QueryParam("motdepasse") String motdepasse) {
+		if (validerCo(pseudo, motdepasse)) {
 			response.addCookie(new javax.servlet.http.Cookie("cookie1", pseudo));
-//			updateConnection(user);
-//	        Persistence.PersistenceConnection.getInstance().setUser(user);
-	        return Response.seeOther(URI.create("friendCAR/rest/accueil")).build();		
+			// updateConnection(user);
+			// Persistence.PersistenceConnection.getInstance().setUser(user);
+			return Response.seeOther(URI.create("friendCAR/rest/accueil")).build();
 		} else {
 			return Response.seeOther(URI.create("/friendCAR/rest/co")).build();
 		}
 	}
-    
 
 	public boolean validerCo(String pseudo, String motdepasse) {
 		String req = "SELECT * FROM user WHERE pseudo = ? AND motdepasse = ? ";
+		Boolean validation = false;
 		try {
 			PreparedStatement ps = DBconfig.getConnection().prepareStatement(req);
 			ps.setString(1, pseudo);
 			ps.setString(2, motdepasse);
+			System.out.println(pseudo +" / "+ motdepasse);
 			ResultSet rs = ps.executeQuery();
-			rs.next();
-			User user = new User();
-			user.setPseudo(pseudo);
-			user.setMdp(motdepasse);
-			this.setUser(user);
-			return true;
+			if (rs.next()) {
+				User user = new User();
+				user.setPseudo(pseudo);
+				user.setMdp(motdepasse);
+				this.setUser(user);
+				validation = true;
+			}
+			return validation;
 		} catch (SQLException ex) {
 			System.out.println("Pas d'utilisateur avec ces id dans la bdd : " + ex);
-			return false;
+			return validation;
 		}
 	}
-
 
 	/**
 	 * @return user
@@ -75,7 +77,6 @@ public class ValidationCo {
 		return user;
 	}
 
-
 	/**
 	 * @param user
 	 */
@@ -83,6 +84,6 @@ public class ValidationCo {
 		this.user = user;
 	}
 
-	//TODO : update la last connexion ?
-	
+	// TODO : update la last connexion ?
+
 }
