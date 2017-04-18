@@ -21,6 +21,14 @@ public class Connection {
 	 * Creates a new instance of ServiceResource
 	 */
 	public Connection() {
+		DBconfig co = new DBconfig();
+		try {
+			co.setUsername("six");
+			co.setPassword("g6xgg1ya");
+			co.getConnection();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
 	}
 
 	/**
@@ -30,20 +38,11 @@ public class Connection {
 	 */
 	@GET
 	@Produces("text/html")
-	public String connectionForm() {
-		DBconfig co = new DBconfig();
-		try {
-			co.setUsername("six");
-			co.setPassword("g6xgg1ya");
-			co.getConnection();
-			return "<html> <title>" + "Friend CAR" + "</title>" + "<body><h1>" + "Friend CAR" + "</body></h1>"
-					+ "<form action=\"ValidationCo\"> <label for=\"pseudo\">Pseudo :</label><input name=\"pseudo\" type=\"text\" id=\"pseudo\" /><br />\n"
-					+ "	<label for=\"password\">Mot de Passe :</label><input type=\"password\" name=\"password\" id=\"password\" />\n\n"
-					+ "<input type=\"submit\" value=\"Submit\" \n /> </form></html>";
-		} catch (Exception e) {
-			System.out.println(e);
-			return "error on connecting to database";
-		}
+	public String formulaireConnection() {
+		return "<html> <title>" + "Friend CAR" + "</title>" + "<body><h1>" + "Friend CAR" + "</body></h1>"
+				+ "<form action=\"ValidationCo\"> <label for=\"pseudo\">Pseudo :</label><input name=\"pseudo\" type=\"text\" id=\"pseudo\" /><br />\n"
+				+ "	<label for=\"password\">Mot de Passe :</label><input type=\"password\" name=\"password\" id=\"password\" />\n\n"
+				+ "<input type=\"submit\" value=\"Submit\" \n /> </form></html>";
 	}
 
 	/**

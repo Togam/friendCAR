@@ -21,6 +21,14 @@ public class Inscription {
 	 * Creates a new instance of ServiceResource
 	 */
 	public Inscription() {
+		DBconfig co = new DBconfig();
+		try {
+			co.setUsername("six");
+			co.setPassword("g6xgg1ya");
+			co.getConnection();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
 	}
 
 	/**
@@ -30,11 +38,11 @@ public class Inscription {
 	 */
 	@GET
 	@Produces("text/html")
-	public String connectionForm() {
+	public String formulaireInscription() {
 		try {
 			return "<html>"
 					+"<body>"
-					+"<h1>FriendCAR, le réseau social des geeks!</h1>" 
+					+"<h1>FriendCAR, le reseau social des geeks!</h1>" 
 					+"<meta charset=\"utf-8\">"
 					+"<div class=\"tab-content-inner\" data-content=\"signup\">"
 					+"<form method=\"post\" action=\"fonctions/gestion_inscritption.php\">"
@@ -59,7 +67,7 @@ public class Inscription {
 					+"</div>"
 					+"</br>"
 					+"<div class=\"col-md-12\">"
-					+"<label for=\"firstname\">Prénom : </label>"
+					+"<label for=\"firstname\">Prenom : </label>"
 					+"<input type=\"text\" class=\"form-control\" name=\"firstname\">"
 					+"</div>"
 					+"</br>"
