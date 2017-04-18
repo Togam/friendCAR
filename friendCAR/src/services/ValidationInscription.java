@@ -36,10 +36,11 @@ public class ValidationInscription {
 	@GET
 	public Response Inscription(@QueryParam("username") String pseudo, @QueryParam("password") String motdepasse, @QueryParam("password2") String motdepasse2, @QueryParam("lastname") String nom, @QueryParam("firstname") String prenom, @QueryParam("mail") String mail) {
 		if (validerInscription(pseudo, motdepasse, motdepasse2, nom, prenom, mail)) {
-//			response.addCookie(new javax.servlet.http.Cookie("cookie1", pseudo));
-			// updateConnection(user);
-			// Persistence.PersistenceConnection.getInstance().setUser(user);
-			return Response.seeOther(URI.create("friendCAR/rest/co")).build();
+			if(inscriptionBDD(pseudo, motdepasse, nom, prenom, mail)){
+				return Response.seeOther(URI.create("friendCAR/rest/co")).build();
+			} else {
+				return Response.seeOther(URI.create("/friendCAR/rest/inscription")).build();
+			}
 		} else {
 			return Response.seeOther(URI.create("/friendCAR/rest/inscription")).build();
 		}
@@ -73,6 +74,23 @@ public class ValidationInscription {
 			return validation;
 		} catch (SQLException ex) {
 			System.out.println("erreur sql  : " + ex);
+			return false;
+		}
+	}
+	
+	public boolean inscriptionBDD(final String pseudo, final String motdepasse, final String nom, final String prenom, final String mail){
+		String req = "INSERT INTO user(pseudo,motdepasse,nom,prenom,mail) VALUES(?,?,?,?,?)";
+		try{
+			PreparedStatement ps = DBconfig.getConnection().prepareStatement(req);
+			ps.setString(1, pseudo);
+			ps.setString(2, motdepasse);
+			ps.setString(3, nom);
+			ps.setString(4, prenom);
+			ps.setString(5, mail);
+			ps.execute();
+			return true;
+		} catch (SQLException ex) {
+			System.out.println("problème lors de l'insertion en base  : " + ex);
 			return false;
 		}
 	}
