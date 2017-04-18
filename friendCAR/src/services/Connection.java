@@ -39,10 +39,10 @@ public class Connection {
 	@GET
 	@Produces("text/html")
 	public String formulaireConnection() {
-		return "<html> <title>" + "Friend CAR" + "</title>" + "<body><h1>" + "Friend CAR" + "</body></h1>"
+		return "<html> <title>" + "Friend CAR" + "</title>" + "<body><h1>Connection</h1></body>"
 				+ "<form action=\"validation\"> <label for=\"pseudo\">Pseudo :</label><input name=\"pseudo\" type=\"text\" id=\"pseudo\" /><br />\n"
 				+ "	<label for=\"motdepasse\">Mot de Passe :</label><input type=\"motdepasse\" name=\"motdepasse\" id=\"motdepasse\" />\n\n"
-				+ "<input type=\"submit\" value=\"Submit\" \n /> </form></html>";
+				+ "<input type=\"submit\" value=\"Se connecter\" \n /> </form></html>";
 	}
 
 	/**

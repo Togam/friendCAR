@@ -42,7 +42,7 @@ public class Inscription {
 		try {
 			return "<html>"
 					+"<body>"
-					+"<h1>FriendCAR, le reseau social des geeks!</h1>" 
+					+"<h1>Inscription</h1>" 
 					+"<meta charset=\"utf-8\">"
 					+"<div class=\"tab-content-inner\" data-content=\"signup\">"
 					+"<form action=\"valid_inscr\">"
@@ -77,7 +77,7 @@ public class Inscription {
 					+"</div>"
 					+"</br>"
 					+"<div class=\"col-md-12\">"
-					+"<input type=\"submit\" value=\"Submit\" \n />"
+					+"<input type=\"submit\" value=\"S'inscrire\" \n />"
 					+"</div>"
 					+"</form>"
 					+"</div>"
