@@ -24,8 +24,6 @@ import persistance.DBconfig;
 @Path("valid_inscr")
 public class ValidationInscription {
 
-	private User user;
-
 	@Context
 	private UriInfo context;
 
@@ -36,8 +34,8 @@ public class ValidationInscription {
 	private HttpServletResponse response;
 
 	@GET
-	public Response Inscription(@QueryParam("username") String pseudo, @QueryParam("password") String motdepasse, @QueryParam("password2") String motdepasse2) {
-		if (validerInscription(pseudo, motdepasse, motdepasse2)) {
+	public Response Inscription(@QueryParam("username") String pseudo, @QueryParam("password") String motdepasse, @QueryParam("password2") String motdepasse2, @QueryParam("lastname") String nom, @QueryParam("firstname") String prenom, @QueryParam("mail") String mail) {
+		if (validerInscription(pseudo, motdepasse, motdepasse2, nom, prenom, mail)) {
 //			response.addCookie(new javax.servlet.http.Cookie("cookie1", pseudo));
 			// updateConnection(user);
 			// Persistence.PersistenceConnection.getInstance().setUser(user);
@@ -47,7 +45,16 @@ public class ValidationInscription {
 		}
 	}
 
-	public boolean validerInscription(String pseudo, String motdepasse, String mdp2) {
+	/**
+	 * @param pseudo
+	 * @param motdepasse
+	 * @param mdp2
+	 * @param nom
+	 * @param prenom
+	 * @param mail
+	 * @return
+	 */
+	public boolean validerInscription(final String pseudo, final String motdepasse, final String mdp2, final String nom, final String prenom, final String mail) {
 		String req = "SELECT * FROM user WHERE pseudo = ?";
 		Boolean validation = true;
 		try {
@@ -60,27 +67,14 @@ public class ValidationInscription {
 			if (!motdepasse.equals(mdp2)){
 				validation = false;
 			}
+			if( (pseudo==null) || (motdepasse==null) || (mdp2==null) || (nom==null) || (prenom==null) || (mail==null) ){
+				validation = false;
+			}
 			return validation;
 		} catch (SQLException ex) {
 			System.out.println("erreur sql  : " + ex);
 			return false;
 		}
 	}
-
-	/**
-	 * @return user
-	 */
-	public User getUser() {
-		return user;
-	}
-
-	/**
-	 * @param user
-	 */
-	public void setUser(User user) {
-		this.user = user;
-	}
-
-	// TODO : update la last connexion ?
 
 }
