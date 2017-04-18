@@ -9,37 +9,22 @@ import java.io.Serializable;
 public class User implements Serializable {
 
 	private static final long serialVersionUID = 6963156678736434987L;
-	protected String pseudo;
-	protected String mail;
-	protected String motdepasse;
-	protected int idUser;
-//	 protected ArrayList<Friend> friends = new ArrayList();
+	private String pseudo;
+	private String mail;
+	private String motdepasse;
+	private String nom;
+	private String prenom;
 
 	public User() {
-
 	}
 
 	/**
-	 * @param id
 	 * @param pseudo
 	 * @param mail
 	 */
-	public User(int id, String pseudo, String mail) {
-		this.idUser = id;
+	public User(final String pseudo, final String mail) {
 		this.pseudo = pseudo;
 		this.mail = mail;
-	}
-
-	/**
-	 * @param id
-	 * @param pseudo
-	 * @param pwd
-	 * @param mail
-	 */
-	public User(int id, String pseudo, String motdepasse, String mail) {
-		this.pseudo = pseudo;
-		this.mail = mail;
-		this.motdepasse = motdepasse;
 	}
 
 	/**
@@ -47,16 +32,11 @@ public class User implements Serializable {
 	 * @param pwd
 	 * @param mail
 	 */
-	public User(String pseudo, String motdepasse, String mail) {
+	public User(final String pseudo, final String motdepasse, final String mail) {
 		this.pseudo = pseudo;
 		this.mail = mail;
 		this.motdepasse = motdepasse;
 	}
-
-	/*
-	 * public ArrayList<Friend> getFriends() { return friends; } public void
-	 * setFriends(ArrayList<Friend> friends) { this.friends = friends; }
-	 */
 
 	/**
 	 * @return
@@ -68,7 +48,7 @@ public class User implements Serializable {
 	/**
 	 * @param pseudo
 	 */
-	public void setPseudo(String pseudo) {
+	public void setPseudo(final String pseudo) {
 		this.pseudo = pseudo;
 	}
 
@@ -82,7 +62,7 @@ public class User implements Serializable {
 	/**
 	 * @param mail
 	 */
-	public void setMail(String mail) {
+	public void setMail(final String mail) {
 		this.mail = mail;
 	}
 
@@ -94,31 +74,47 @@ public class User implements Serializable {
 	}
 
 	/**
-	 * @param pwd
+	 * @param mdp
 	 */
-	public void setMdp(String mdp) {
+	public void setMdp(final String mdp) {
 		this.motdepasse = mdp;
 	}
 
-	/**
-	 * @return
-	 */
-	public int getIdUser() {
-		return idUser;
-	}
-
-	/**
-	 * @param idUser
-	 */
-	public void setIdUser(int idUser) {
-		this.idUser = idUser;
-	}
-
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return ("id: " + this.idUser + "\nPseudo : " + this.pseudo + "\nmail: " + this.mail);
+		return ("Pseudo : " + this.pseudo + "\nmail: " + this.mail);
+	}
+
+	/**
+	 * @return nom
+	 */
+	public String getNom() {
+		return nom;
+	}
+
+	/**
+	 * @param nom
+	 */
+	public void setNom(final String nom) {
+		this.nom = nom;
+	}
+
+	/**
+	 * @return prenom
+	 */
+	public String getPrenom() {
+		return prenom;
+	}
+
+	/**
+	 * @param prenom
+	 */
+	public void setPrenom(final String prenom) {
+		this.prenom = prenom;
 	}
 }

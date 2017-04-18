@@ -47,7 +47,6 @@ public class ValidationCo {
 		}
 	}
     
-    //TODO : update la last connexion ?
 
 	public boolean validerCo(String pseudo, String motdepasse) {
 		String req = "SELECT * FROM user WHERE pseudo = ? AND motdepasse = ? ";
@@ -60,7 +59,7 @@ public class ValidationCo {
 			User user = new User();
 			user.setPseudo(pseudo);
 			user.setMdp(motdepasse);
-			this.user = user;
+			this.setUser(user);
 			return true;
 		} catch (SQLException ex) {
 			System.out.println("Pas d'utilisateur avec ces id dans la bdd : " + ex);
@@ -68,4 +67,22 @@ public class ValidationCo {
 		}
 	}
 
+
+	/**
+	 * @return user
+	 */
+	public User getUser() {
+		return user;
+	}
+
+
+	/**
+	 * @param user
+	 */
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	//TODO : update la last connexion ?
+	
 }
