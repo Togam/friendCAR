@@ -40,7 +40,7 @@ public class Connection {
 	@Produces("text/html")
 	public String formulaireConnection() {
 		return "<html> <title>" + "Friend CAR" + "</title>" + "<body><h1>" + "Friend CAR" + "</body></h1>"
-				+ "<form action=\"ValidationCo\"> <label for=\"pseudo\">Pseudo :</label><input name=\"pseudo\" type=\"text\" id=\"pseudo\" /><br />\n"
+				+ "<form action=\"validation\"> <label for=\"pseudo\">Pseudo :</label><input name=\"pseudo\" type=\"text\" id=\"pseudo\" /><br />\n"
 				+ "	<label for=\"password\">Mot de Passe :</label><input type=\"password\" name=\"password\" id=\"password\" />\n\n"
 				+ "<input type=\"submit\" value=\"Submit\" \n /> </form></html>";
 	}

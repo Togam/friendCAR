@@ -11,9 +11,9 @@ public class User implements Serializable {
 	private static final long serialVersionUID = 6963156678736434987L;
 	protected String pseudo;
 	protected String mail;
-	protected String pwd;
+	protected String motdepasse;
 	protected int idUser;
-	// protected ArrayList<Friend> friends = new ArrayList();
+//	 protected ArrayList<Friend> friends = new ArrayList();
 
 	public User() {
 
@@ -36,10 +36,10 @@ public class User implements Serializable {
 	 * @param pwd
 	 * @param mail
 	 */
-	public User(int id, String pseudo, String pwd, String mail) {
+	public User(int id, String pseudo, String motdepasse, String mail) {
 		this.pseudo = pseudo;
 		this.mail = mail;
-		this.pwd = pwd;
+		this.motdepasse = motdepasse;
 	}
 
 	/**
@@ -47,10 +47,10 @@ public class User implements Serializable {
 	 * @param pwd
 	 * @param mail
 	 */
-	public User(String pseudo, String pwd, String mail) {
+	public User(String pseudo, String motdepasse, String mail) {
 		this.pseudo = pseudo;
 		this.mail = mail;
-		this.pwd = pwd;
+		this.motdepasse = motdepasse;
 	}
 
 	/*
@@ -89,15 +89,15 @@ public class User implements Serializable {
 	/**
 	 * @return
 	 */
-	public String getPwd() {
-		return pwd;
+	public String getMdp() {
+		return motdepasse;
 	}
 
 	/**
 	 * @param pwd
 	 */
-	public void setPwd(String pwd) {
-		this.pwd = pwd;
+	public void setMdp(String mdp) {
+		this.motdepasse = mdp;
 	}
 
 	/**
