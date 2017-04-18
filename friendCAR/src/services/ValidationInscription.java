@@ -37,7 +37,7 @@ public class ValidationInscription {
 	public Response Inscription(@QueryParam("username") String pseudo, @QueryParam("password") String motdepasse, @QueryParam("password2") String motdepasse2, @QueryParam("lastname") String nom, @QueryParam("firstname") String prenom, @QueryParam("mail") String mail) {
 		if (validerInscription(pseudo, motdepasse, motdepasse2, nom, prenom, mail)) {
 			if(inscriptionBDD(pseudo, motdepasse, nom, prenom, mail)){
-				return Response.seeOther(URI.create("friendCAR/rest/co")).build();
+				return Response.seeOther(URI.create("/friendCAR/rest/co")).build();
 			} else {
 				return Response.seeOther(URI.create("/friendCAR/rest/inscription")).build();
 			}

@@ -41,20 +41,19 @@ public class ValidationCo {
 			response.addCookie(new javax.servlet.http.Cookie("cookie1", pseudo));
 			// updateConnection(user);
 			// Persistence.PersistenceConnection.getInstance().setUser(user);
-			return Response.seeOther(URI.create("friendCAR/rest/accueil")).build();
+			return Response.seeOther(URI.create("/friendCAR/rest/accueil")).build();
 		} else {
 			return Response.seeOther(URI.create("/friendCAR/rest/co")).build();
 		}
 	}
 
-	public boolean validerCo(String pseudo, String motdepasse) {
+	public boolean validerCo(final String pseudo, final String motdepasse) {
 		String req = "SELECT * FROM user WHERE pseudo = ? AND motdepasse = ? ";
 		Boolean validation = false;
 		try {
 			PreparedStatement ps = DBconfig.getConnection().prepareStatement(req);
 			ps.setString(1, pseudo);
 			ps.setString(2, motdepasse);
-			System.out.println(pseudo +" / "+ motdepasse);
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
 				User user = new User();
@@ -80,7 +79,7 @@ public class ValidationCo {
 	/**
 	 * @param user
 	 */
-	public void setUser(User user) {
+	public void setUser(final User user) {
 		this.user = user;
 	}
 
