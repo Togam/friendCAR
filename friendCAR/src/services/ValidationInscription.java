@@ -15,7 +15,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
 import model.User;
-import persistance.DBconfig;
+import persistence.DBconfig;
 
 /**
  * @author Margot

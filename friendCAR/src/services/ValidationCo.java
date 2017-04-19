@@ -15,7 +15,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
 import model.User;
-import persistance.DBconfig;
+import persistence.DBconfig;
 
 /**
  * @author Margot
@@ -40,7 +40,7 @@ public class ValidationCo {
 		if (validerCo(pseudo, motdepasse)) {
 			response.addCookie(new javax.servlet.http.Cookie("cookie1", pseudo));
 			// updateConnection(user);
-			// Persistence.PersistenceConnection.getInstance().setUser(user);
+			 persistence.DBconfig.getInst().setUser(user);
 			return Response.seeOther(URI.create("/friendCAR/rest/accueil")).build();
 		} else {
 			return Response.seeOther(URI.create("/friendCAR/rest/co")).build();

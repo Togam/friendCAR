@@ -1,8 +1,10 @@
 package services;
 
-import persistance.DBconfig;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
+
+import persistence.DBconfig;
+
 import javax.ws.rs.Produces;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -25,7 +27,7 @@ public class Connection {
 		try {
 			co.setUsername("six");
 			co.setPassword("g6xgg1ya");
-			co.getConnection();
+			co.startConnection();
 		} catch (Exception e) {
 			System.out.println(e);
 		}
