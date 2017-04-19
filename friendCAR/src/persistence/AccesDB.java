@@ -64,4 +64,23 @@ public class AccesDB {
 		return list;
 	}
 
+	/**
+	 * Insérer un commentaire en base
+	 * 
+	 * @param commentaire
+	 * @param user
+	 */
+	public static void insertCom(final String commentaire, final User user, final int idStatut) {
+		try {
+			String req = "INSERT INTO commentaire (pseudo, contenu, temps_publi, id_statut) VALUES (?,?,NOW(),?)";
+			PreparedStatement ps = c.prepareStatement(req);
+			ps.setString(1, user.getPseudo());
+			ps.setString(2, commentaire);
+			ps.setInt(3, idStatut);
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("erreur lors de l'insertion du commentaire en base : " + e);
+		}
+	}
+
 }

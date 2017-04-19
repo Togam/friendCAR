@@ -37,7 +37,7 @@ public class Accueil {
 		List<Statut> listStatut = AccesDB.getTenLastStatuts(DBconfig.getInst().getUser());
 		String str = "";
 		for (Statut st : listStatut) {
-			str += "<form action=\"\" method=\"POST\"> <table <table style=\"border:1px dotted black;\">" + "<tr><td>"
+			str += "<form action=\"ajoutCom\" method=\"POST\"> <table <table style=\"border:1px dotted black;\">" + "<tr><td>"
 					+ st.getUser() + "   " + st.getPubli() + "</td></tr>"
 					+"<tr><td>" + st.getContenu() + " </td></tr><tr><td><b>Commentaires</b></td></tr>";
 			// TODO : gestion des commentaires
@@ -48,7 +48,7 @@ public class Accueil {
 			str += "<tr><td><input type=\"text\" name=\"idStatut\" value=\"" + st.getId()
 					+ "\" hidden /> <label for=\"Commentaire\">Commentaire :</label><input name=\"commentaire\""
 					+ "type=\"text\" id=\"commentaire\" required />"
-					+ "<input type=\"submit\" name=\"Comment\" value=\"Comment\" \n /></td></tr>"
+					+ "<input type=\"submit\" name=\"Commenter\" value=\"Commenter\" \n /></td></tr>"
 					+ "</table> </form> <br/>";
 		}
 		return str;
