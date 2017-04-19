@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.Commentaire;
 import model.Statut;
 import model.User;
 
@@ -55,7 +56,7 @@ public class AccesDB {
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				Statut statut = new Statut(rs.getInt(1), rs.getString(2), rs.getDate(3), rs.getString(4));
-				// TODO : faire la gestion des commentaires ici
+				statut.setCommentaires(getAllComByStatut(statut));
 				list.add(statut);
 			}
 		} catch (SQLException e) {
@@ -81,6 +82,30 @@ public class AccesDB {
 		} catch (SQLException e) {
 			System.out.println("erreur lors de l'insertion du commentaire en base : " + e);
 		}
+	}
+
+	/**
+	 * Méthode qui permet de récupérer tous les commentaires d'un statut
+	 * 
+	 * @param statut
+	 * @return la liste des commentaires du statut concerné
+	 */
+	public static List<Commentaire> getAllComByStatut(final Statut statut) {
+		List<Commentaire> list = new ArrayList<Commentaire>();
+		try {
+			String req = "select * from commentaire where id_statut=? ORDER BY temps_publi DESC";
+			PreparedStatement ps = c.prepareStatement(req);
+			ps.setInt(1, statut.getId());
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				Commentaire com = new Commentaire(rs.getInt(1), rs.getString(2), rs.getDate(3), rs.getString(4),
+						rs.getInt(5));
+				list.add(com);
+			}
+		} catch (SQLException e) {
+			System.out.println("erreur lors de la récupération des statuts en base : " + e);
+		}
+		return list;
 	}
 
 }

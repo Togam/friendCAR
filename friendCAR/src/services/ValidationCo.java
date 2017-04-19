@@ -59,6 +59,10 @@ public class ValidationCo {
 				User user = new User();
 				user.setPseudo(pseudo);
 				user.setMdp(motdepasse);
+				user.setNom(rs.getString(3));
+				user.setPrenom(rs.getString(4));
+				// TODO : dernière co ?
+				user.setMail(rs.getString(6));
 				this.setUser(user);
 				validation = true;
 			}

@@ -14,6 +14,8 @@ public class User implements Serializable {
 	private String motdepasse;
 	private String nom;
 	private String prenom;
+	// TODO : last co ?
+	// TODO : liste amis ?
 
 	public User() {
 	}
