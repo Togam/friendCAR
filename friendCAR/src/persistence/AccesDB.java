@@ -2,6 +2,7 @@ package persistence;
 
 import static persistence.DBconfig.c;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import model.User;
@@ -20,13 +21,10 @@ public class AccesDB {
 	 */
 	public static void insertStatut(String statut, User user) {
 		try {
-			String req = "INSERT INTO statut (pseudo, contenu, temps_publi) VALUES (?,?,?)";
+			String req = "INSERT INTO statut (pseudo, contenu, temps_publi) VALUES (?,?,NOW())";
 			java.sql.PreparedStatement ps = c.prepareStatement(req);
 			ps.setString(1, user.getPseudo());
 			ps.setString(2, statut);
-			java.util.Date utilDate = new java.util.Date();
-			java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
-			ps.setDate(3, sqlDate);
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println("erreur lors de l'insertion du statut en base : " + e);
