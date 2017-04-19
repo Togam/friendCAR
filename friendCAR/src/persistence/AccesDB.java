@@ -93,7 +93,7 @@ public class AccesDB {
 	public static List<Commentaire> getAllComByStatut(final Statut statut) {
 		List<Commentaire> list = new ArrayList<Commentaire>();
 		try {
-			String req = "select * from commentaire where id_statut=? ORDER BY temps_publi DESC";
+			String req = "select * from commentaire where id_statut=? ORDER BY temps_publi ASC";
 			PreparedStatement ps = c.prepareStatement(req);
 			ps.setInt(1, statut.getId());
 			ResultSet rs = ps.executeQuery();
