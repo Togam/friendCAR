@@ -182,4 +182,40 @@ public class AccesDB {
 		return list;
 	}
 
+	/**
+	 * Supprime le lien d'amitié entre l'utilisateur et un ami choisi en base
+	 * 
+	 * @param user
+	 * @param idFriend
+	 */
+	public static void deleteFriend(final User user, final String idFriend) {
+		try {
+			String req = "delete from est_ami where pseudo1=? and pseudo2=?";
+			PreparedStatement ps = c.prepareStatement(req);
+			ps.setString(1, user.getPseudo());
+			ps.setString(2, idFriend);
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("erreur lors de la suppresion du lien d'amitié en base : " + e);
+		}
+	}
+	
+	/**
+	 * Supprime le lien d'amitié entre l'utilisateur et un ami choisi en base
+	 * 
+	 * @param user
+	 * @param idFriend
+	 */
+	public static void insertFriend(final User user, final String idNotFriend) {
+		try {
+			String req = "insert into est_ami VALUES (?,?)";
+			PreparedStatement ps = c.prepareStatement(req);
+			ps.setString(1, user.getPseudo());
+			ps.setString(2, idNotFriend);
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("erreur lors de l'insertion du lien d'amitié en base : " + e);
+		}
+	}
+
 }

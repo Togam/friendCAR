@@ -100,8 +100,9 @@ public class Accueil {
 			str += "<tr><td>  Vous ne suivez personne :(  </td></tr>";
 		} else {
 			for (User friend : listFriends) {
-				str += "<tr><td><b>" + friend.getPseudo() + " : </b>" + friend.getNom() + " " + friend.getPrenom()
-						+ "</td><td><td><input type=\"submit\" value=\"-\" \n /></td><tr>";
+				str += "<tr><td><input type=\"text\" name=\"idFriend\" value=\"" + friend.getPseudo()
+					+ "\" hidden /><b>" + friend.getPseudo() + " : </b>" + friend.getNom() + " " + friend.getPrenom()
+						+ "</td><td><td><input type=\"submit\" name=\"idFriend\" value=\"-\" \n /></td><tr>";
 				// TODO : last co
 				// TODO : en ligne / hors ligne
 			}
@@ -120,13 +121,14 @@ public class Accueil {
 	@Produces("text/html")
 	public String displayNotFriends() throws SQLException {
 		List<User> listNotFriends = AccesDB.getAllUserNotFriends(user);
-		String str = "<br><b> Vous connaissez peut-ete ?</b><br>"
+		String str = "<b> Vous connaissez peut-etre ?</b><br>"
 				+ "<form action=\"ajoutAmi\" method=\"POST\"><table style=\"border:1px dotted black;\">";
 		if (listNotFriends.isEmpty()) {
-			str += "<tr><td>  Félicitation vous suivez tout le monde :D  </td></tr>";
+			str += "<tr><td>  Felicitation vous suivez tout le monde :D  </td></tr>";
 		} else {
 			for (User notFriend : listNotFriends) {
-				str += "<tr><td><b>" + notFriend.getPseudo() + " : </b>" + notFriend.getNom() + " "
+				str += "<tr><td><input type=\"text\" name=\"idFriend\" value=\"" + notFriend.getPseudo()
+					+ "\" hidden /><b>" + notFriend.getPseudo() + " : </b>" + notFriend.getNom() + " "
 						+ notFriend.getPrenom() + "</td><td><input type=\"submit\" value=\"+\" \n /></td></tr>";
 			}
 		}
