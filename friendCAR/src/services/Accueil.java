@@ -22,12 +22,23 @@ public class Accueil {
 
 	private User user = DBconfig.getInst().getUser();
 
+	/**
+	 * Renvoie la page d'accueil complète après authentification
+	 * 
+	 * @return Page d'accueil
+	 * @throws SQLException
+	 */
 	@GET
 	@Produces("text/html")
 	public String pageAccueil() throws SQLException {
-		return displayHeader() + displayAddStatut() + displayListStatut()+displayFriends()+displayNotFriends();
+		return displayHeader() + displayAddStatut() + displayListStatut() + displayFriends() + displayNotFriends();
 	}
 
+	/**
+	 * L'entête de la page d'accueil (informations de la personne connectée)
+	 * 
+	 * @return entête d'accueil
+	 */
 	@Produces("text/html")
 	public String displayHeader() {
 		String header = "<title>Friend CAR</title><b>" + user.getPseudo() + " : " + user.getNom() + " "
@@ -35,6 +46,11 @@ public class Accueil {
 		return header;
 	}
 
+	/**
+	 * Module permettant d'écrire et de publier un statut
+	 * 
+	 * @return
+	 */
 	@Produces("text/html")
 	public String displayAddStatut() {
 		return "<form action=\"ajoutStatut\" method=\"POST\">"
@@ -42,13 +58,20 @@ public class Accueil {
 				+ "<input type=\"submit\" value=\"Publier\" \n /> </form>";
 	}
 
+	/**
+	 * Liste des 10 derniers statuts publié par la personne connectée ou ses
+	 * amis
+	 * 
+	 * @return affichage de la liste des 10 statuts
+	 * @throws SQLException
+	 */
 	@Produces("text/html")
 	public String displayListStatut() throws SQLException {
 		List<Statut> listStatut = AccesDB.getTenLastStatuts(user);
 		String str = "<b>What's up geeks ?  </b><br><br>";
 		for (Statut st : listStatut) {
-			str += "<form action=\"ajoutCom\" method=\"POST\"> <table style=\"border:1px dotted black;\">"
-					+ "<tr><td>" + st.getUser() + "   " + st.getPubli() + "</td></tr>" + "<tr><td>" + st.getContenu()
+			str += "<form action=\"ajoutCom\" method=\"POST\"> <table style=\"border:1px dotted black;\">" + "<tr><td>"
+					+ st.getUser() + "   " + st.getPubli() + "</td></tr>" + "<tr><td>" + st.getContenu()
 					+ " </td></tr><tr><td><b>Commentaires</b></td></tr>";
 			for (Commentaire com : st.getCommentaires()) {
 				str += "<tr><td>" + com.getPseudo() + " " + com.getPubli() + " : " + com.getContenu() + "</td></tr>";
@@ -62,31 +85,52 @@ public class Accueil {
 		return str;
 	}
 
+	/**
+	 * Liste des amis ajoutés par la personne connectée
+	 * 
+	 * @return affichage des amis
+	 * @throws SQLException
+	 */
 	@Produces("text/html")
 	public String displayFriends() throws SQLException {
 		List<User> listFriends = AccesDB.getAllFriends(user);
 		String str = "<b> Vos amis geek : </b><br>"
-				+ "<table style=\"border:1px dotted black;\">";
-		for(User friend : listFriends){
-			str +="<tr><td><b>"+friend.getPseudo()+" : </b>"+friend.getNom()+" "+friend.getPrenom()
-				+"</td><tr><table>";
-			// TODO : last co
-			// TODO : en ligne / hors ligne
-			// TODO : si liste ami vide : "Vous n'avez pas d'ami :("
+				+ "<form action=\"supprAmi\" method=\"POST\"><table style=\"border:1px dotted black;\">";
+		if (listFriends.isEmpty()) {
+			str += "<tr><td>  Vous ne suivez personne :(  </td></tr>";
+		} else {
+			for (User friend : listFriends) {
+				str += "<tr><td><b>" + friend.getPseudo() + " : </b>" + friend.getNom() + " " + friend.getPrenom()
+						+ "</td><td><td><input type=\"submit\" value=\"-\" \n /></td><tr>";
+				// TODO : last co
+				// TODO : en ligne / hors ligne
+			}
 		}
+		str += "</table></form>";
 		return str;
 	}
 
+	/**
+	 * Liste des utilisateurs que la personne connectée n'a pas (encore) suivi
+	 * 
+	 * @return affichage des utilisateurs qui ne sont pas (encore) ami avec la
+	 *         personne connectée
+	 * @throws SQLException
+	 */
 	@Produces("text/html")
 	public String displayNotFriends() throws SQLException {
 		List<User> listNotFriends = AccesDB.getAllUserNotFriends(user);
-		String str="<br><b> Vous connaissez peut-ete ?</b><br>"
-				+"<form action=\"ajoutAmi\" method=\"POST\"><table style=\"border:1px dotted black;\">";
-		for(User notFriend : listNotFriends){
-			str +="<tr><td><b>"+notFriend.getPseudo()+" : </b>"+notFriend.getNom()+" "+notFriend.getPrenom()
-			+"</td><td><input type=\"submit\" value=\"+\" \n /></td><tr></table></form>";
+		String str = "<br><b> Vous connaissez peut-ete ?</b><br>"
+				+ "<form action=\"ajoutAmi\" method=\"POST\"><table style=\"border:1px dotted black;\">";
+		if (listNotFriends.isEmpty()) {
+			str += "<tr><td>  Félicitation vous suivez tout le monde :D  </td></tr>";
+		} else {
+			for (User notFriend : listNotFriends) {
+				str += "<tr><td><b>" + notFriend.getPseudo() + " : </b>" + notFriend.getNom() + " "
+						+ notFriend.getPrenom() + "</td><td><input type=\"submit\" value=\"+\" \n /></td></tr>";
+			}
 		}
+		str += "</table></form>";
 		return str;
-		// TODO : si liste non ami vide : "Félicitation vous êtes populaire !"
 	}
 }
