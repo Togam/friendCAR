@@ -25,14 +25,13 @@ public class Accueil {
 	@GET
 	@Produces("text/html")
 	public String pageAccueil() throws SQLException {
-		return displayHeader()+displayAddStatut() + displayListStatut();
+		return displayHeader() + displayAddStatut() + displayListStatut()+displayFriends();
 	}
 
 	@Produces("text/html")
 	public String displayHeader() {
-		String header = "<title>Friend CAR</title><b>" + user.getPseudo() + " : " + user.getNom() + " " 
-						+ user.getPrenom()+" - "+user.getMail()+"<hr></br>";
-		// TODO : ajout de la last connexion ou pas ??
+		String header = "<title>Friend CAR</title><b>" + user.getPseudo() + " : " + user.getNom() + " "
+				+ user.getPrenom() + " - " + user.getMail() + "<hr></br>";
 		return header;
 	}
 
@@ -48,7 +47,7 @@ public class Accueil {
 		List<Statut> listStatut = AccesDB.getTenLastStatuts(user);
 		String str = "<b>What's up geeks ?  </b><br><br>";
 		for (Statut st : listStatut) {
-			str += "<form action=\"ajoutCom\" method=\"POST\"> <table <table style=\"border:1px dotted black;\">"
+			str += "<form action=\"ajoutCom\" method=\"POST\"> <table style=\"border:1px dotted black;\">"
 					+ "<tr><td>" + st.getUser() + "   " + st.getPubli() + "</td></tr>" + "<tr><td>" + st.getContenu()
 					+ " </td></tr><tr><td><b>Commentaires</b></td></tr>";
 			for (Commentaire com : st.getCommentaires()) {
@@ -63,4 +62,21 @@ public class Accueil {
 		return str;
 	}
 
+	@Produces("text/html")
+	public String displayFriends() throws SQLException {
+		List<User> listFriends = AccesDB.getAllFriends(user);
+		String str = "<b> Vos amis : </b><br>"
+				+ "<table style=\"border:1px dotted black;\">";
+		for(User friend : listFriends){
+			str +="<tr><td><b>"+friend.getPseudo()+" : </b>"+friend.getNom()+" "+friend.getPrenom()
+				+"</td><tr><table>";
+		}
+		return str;
+	}
+
+	@Produces("text/html")
+	public String displayNotFriends() throws SQLException {
+		String str="";
+		return str;
+	}
 }

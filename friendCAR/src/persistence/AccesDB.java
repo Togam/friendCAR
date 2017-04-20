@@ -108,4 +108,78 @@ public class AccesDB {
 		return list;
 	}
 
+	/**
+	 * Méthode permettant de crée un objet User à partir des données récupérées
+	 * en base grâce au pseudo passé en paramètre
+	 * 
+	 * @param pseudo
+	 * @return l'objet utilisateur correspondant au pseudo
+	 */
+	public static User getUserByPseudo(final String pseudo) {
+		User user = new User();
+		try {
+			String req = "select * from user where pseudo=?";
+			PreparedStatement ps = c.prepareStatement(req);
+			ps.setString(1, pseudo);
+			ResultSet rs = ps.executeQuery();
+			rs.next();
+			user.setPseudo(pseudo);
+			user.setNom(rs.getString(3));
+			user.setPrenom(rs.getString(4));
+			user.setMail(rs.getString(6));
+		} catch (SQLException e) {
+			System.out.println("erreur lors de la récupération des données de l'user en base : " + e);
+		}
+		return user;
+	}
+
+	/**
+	 * Méthode permettant de récupérer tous les utilisateurs amis avec
+	 * l'utilisateur en param
+	 * 
+	 * @param user
+	 * @return liste d'ami
+	 */
+	public static List<User> getAllFriends(final User user) {
+		List<User> list = new ArrayList<User>();
+		try {
+			String req = "select pseudo2 from est_ami where pseudo1=?";
+			PreparedStatement ps = c.prepareStatement(req);
+			ps.setString(1, user.getPseudo());
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				User friend = getUserByPseudo(rs.getString(1));
+				list.add(friend);
+			}
+		} catch (SQLException e) {
+			System.out.println("erreur lors de la récupération des amis en base : " + e);
+		}
+		return list;
+	}
+
+	/**
+	 * Méthode qui récupère tous les utilisateurs qui ne sont pas ami avec
+	 * l'utilisateur passé en param
+	 * 
+	 * @param user
+	 * @return la liste des utilisateurs non ami
+	 */
+	public static List<User> getAllUserNotFriends(final User user) {
+		List<User> list = new ArrayList<User>();
+		try {
+			String req = "select pseudo from user where pseudo not in (select pseudo2 from est_ami where pseudo1=?) and pseudo not like ?";
+			PreparedStatement ps = c.prepareStatement(req);
+			ps.setString(1, user.getPseudo());
+			ps.setString(1, user.getPseudo());
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				User notfriend = getUserByPseudo(rs.getString(1));
+				list.add(notfriend);
+			}
+		} catch (SQLException e) {
+			System.out.println("erreur lors de la récupération des non-amis en base : " + e);
+		}
+		return list;
+	}
+
 }
