@@ -15,6 +15,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
 import model.User;
+import persistence.AccesDB;
 import persistence.DBconfig;
 
 /**
@@ -51,6 +52,7 @@ public class ValidationCo {
 		String req = "SELECT * FROM user WHERE pseudo = ? AND motdepasse = ? ";
 		Boolean validation = false;
 		try {
+			AccesDB.updateLastCo(pseudo);
 			PreparedStatement ps = DBconfig.getConnection().prepareStatement(req);
 			ps.setString(1, pseudo);
 			ps.setString(2, motdepasse);
@@ -61,8 +63,8 @@ public class ValidationCo {
 				user.setMdp(motdepasse);
 				user.setNom(rs.getString(3));
 				user.setPrenom(rs.getString(4));
-				// TODO : dernière co ?
 				user.setMail(rs.getString(6));
+				user.setLastco(rs.getDate(5));
 				this.setUser(user);
 				validation = true;
 			}
@@ -86,7 +88,5 @@ public class ValidationCo {
 	public void setUser(final User user) {
 		this.user = user;
 	}
-
-	// TODO : update la last connexion ?
 
 }

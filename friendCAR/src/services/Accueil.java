@@ -103,10 +103,8 @@ public class Accueil {
 			for (User friend : listFriends) {
 				str += "<tr><td><input type=\"text\" name=\"idFriend\" value=\"" + friend.getPseudo()
 						+ "\" hidden /><b>" + friend.getPseudo() + " : </b>" + friend.getNom() + " "
-						+ friend.getPrenom()
+						+ friend.getPrenom() + " <b>| derniere co : </b>" + friend.getLastco()
 						+ "</td><td><td><input type=\"submit\" name=\"idFriend\" value=\"-\" \n /></td><tr>";
-				// TODO : last co
-				// TODO : en ligne / hors ligne
 			}
 		}
 		str += "</table></form>";

@@ -1,6 +1,7 @@
 package model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @author Margot
@@ -15,7 +16,7 @@ public class User implements Serializable {
 	private String nom;
 	private String prenom;
 	private User recherche;
-	// TODO : last co ?
+	private Date lastco;
 
 	public User() {
 	}
@@ -133,5 +134,19 @@ public class User implements Serializable {
 	 */
 	public void setRecherche(final User recherche) {
 		this.recherche = recherche;
+	}
+
+	/**
+	 * @return the lastco
+	 */
+	public Date getLastco() {
+		return lastco;
+	}
+
+	/**
+	 * @param lastco the lastco to set
+	 */
+	public void setLastco(final Date lastco) {
+		this.lastco = lastco;
 	}
 }

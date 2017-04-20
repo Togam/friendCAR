@@ -135,6 +135,7 @@ public class AccesDB {
 				user.setNom(rs.getString(3));
 				user.setPrenom(rs.getString(4));
 				user.setMail(rs.getString(6));
+				user.setLastco(rs.getDate(5));
 			}
 		} catch (SQLException e) {
 			System.out.println("erreur lors de la récupération des données de l'user en base : " + e);
@@ -249,6 +250,22 @@ public class AccesDB {
 			System.out.println("erreur lors de la recherche du lien d'amitié en base : " + e);
 		}
 		return friendship;
+	}
+
+	/**
+	 * Met à jour la date de la dernière connexion
+	 * 
+	 * @param user
+	 */
+	public static void updateLastCo(final String pseudo) {
+		try {
+			String req = "update user set derniereco=NOW() where pseudo=?";
+			PreparedStatement ps = c.prepareStatement(req);
+			ps.setString(1, pseudo);
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("erreur lors de la maj de la last co: " + e);
+		}
 	}
 
 }
