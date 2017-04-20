@@ -170,7 +170,7 @@ public class AccesDB {
 			String req = "select pseudo from user where pseudo not in (select pseudo2 from est_ami where pseudo1=?) and pseudo not like ?";
 			PreparedStatement ps = c.prepareStatement(req);
 			ps.setString(1, user.getPseudo());
-			ps.setString(1, user.getPseudo());
+			ps.setString(2, user.getPseudo());
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				User notfriend = getUserByPseudo(rs.getString(1));

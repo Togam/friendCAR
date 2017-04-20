@@ -25,7 +25,7 @@ public class Accueil {
 	@GET
 	@Produces("text/html")
 	public String pageAccueil() throws SQLException {
-		return displayHeader() + displayAddStatut() + displayListStatut()+displayFriends();
+		return displayHeader() + displayAddStatut() + displayListStatut()+displayFriends()+displayNotFriends();
 	}
 
 	@Produces("text/html")
@@ -65,18 +65,28 @@ public class Accueil {
 	@Produces("text/html")
 	public String displayFriends() throws SQLException {
 		List<User> listFriends = AccesDB.getAllFriends(user);
-		String str = "<b> Vos amis : </b><br>"
+		String str = "<b> Vos amis geek : </b><br>"
 				+ "<table style=\"border:1px dotted black;\">";
 		for(User friend : listFriends){
 			str +="<tr><td><b>"+friend.getPseudo()+" : </b>"+friend.getNom()+" "+friend.getPrenom()
 				+"</td><tr><table>";
+			// TODO : last co
+			// TODO : en ligne / hors ligne
+			// TODO : si liste ami vide : "Vous n'avez pas d'ami :("
 		}
 		return str;
 	}
 
 	@Produces("text/html")
 	public String displayNotFriends() throws SQLException {
-		String str="";
+		List<User> listNotFriends = AccesDB.getAllUserNotFriends(user);
+		String str="<br><b> Vous connaissez peut-ete ?</b><br>"
+				+"<form action=\"ajoutAmi\" method=\"POST\"><table style=\"border:1px dotted black;\">";
+		for(User notFriend : listNotFriends){
+			str +="<tr><td><b>"+notFriend.getPseudo()+" : </b>"+notFriend.getNom()+" "+notFriend.getPrenom()
+			+"</td><td><input type=\"submit\" value=\"+\" \n /></td><tr></table></form>";
+		}
 		return str;
+		// TODO : si liste non ami vide : "Félicitation vous êtes populaire !"
 	}
 }
