@@ -101,10 +101,9 @@ public class Accueil {
 			str += "<tr><td>  Vous ne suivez personne :(  </td></tr>";
 		} else {
 			for (User friend : listFriends) {
-				str += "<tr><td><input type=\"text\" name=\"idFriend\" value=\"" + friend.getPseudo()
-						+ "\" hidden /><b>" + friend.getPseudo() + " : </b>" + friend.getNom() + " "
+				str += "<tr><td><b>"+ friend.getPseudo() + " : </b>" + friend.getNom() + " "
 						+ friend.getPrenom() + " <b>| derniere co : </b>" + friend.getLastco()
-						+ "</td><td><td><input type=\"submit\" name=\"idFriend\" value=\"-\" \n /></td><tr>";
+						+ "</td><td><td><b> | supprimer : </b><input type=\"submit\" value=\"" + friend.getPseudo() + "\" name=\"idFriend\"></td></tr>";
 			}
 		}
 		str += "</table></form>";
@@ -127,9 +126,8 @@ public class Accueil {
 			str += "<tr><td>  Felicitation vous suivez tout le monde :D  </td></tr>";
 		} else {
 			for (User notFriend : listNotFriends) {
-				str += "<tr><td><input type=\"text\" name=\"idFriend\" value=\"" + notFriend.getPseudo()
-						+ "\" hidden /><b>" + notFriend.getPseudo() + " : </b>" + notFriend.getNom() + " "
-						+ notFriend.getPrenom() + "</td><td><input type=\"submit\" value=\"+\" \n /></td></tr>";
+				str += "<tr><td><b>"+ notFriend.getPseudo() + " : </b>" + notFriend.getNom() + " "
+						+ notFriend.getPrenom() + "</td><td> <b>| ajouter : </b><input type=\"submit\" value=\"" + notFriend.getPseudo() + "\" name=\"idFriend\"></td></tr>";
 			}
 		}
 		str += "</table></form>";

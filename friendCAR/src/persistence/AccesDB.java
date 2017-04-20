@@ -222,6 +222,7 @@ public class AccesDB {
 			PreparedStatement ps = c.prepareStatement(req);
 			ps.setString(1, user.getPseudo());
 			ps.setString(2, idNotFriend);
+			System.out.println(idNotFriend);
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println("erreur lors de l'insertion du lien d'amitié en base : " + e);
