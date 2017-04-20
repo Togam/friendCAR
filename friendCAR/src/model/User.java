@@ -14,8 +14,8 @@ public class User implements Serializable {
 	private String motdepasse;
 	private String nom;
 	private String prenom;
+	private User recherche;
 	// TODO : last co ?
-	// TODO : liste amis ?
 
 	public User() {
 	}
@@ -118,5 +118,20 @@ public class User implements Serializable {
 	 */
 	public void setPrenom(final String prenom) {
 		this.prenom = prenom;
+	}
+
+	/**
+	 * @return the recherche
+	 */
+	public User getRecherche() {
+		return recherche;
+	}
+
+	/**
+	 * @param recherche
+	 *            the recherche to set
+	 */
+	public void setRecherche(final User recherche) {
+		this.recherche = recherche;
 	}
 }

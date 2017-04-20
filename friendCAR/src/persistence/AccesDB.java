@@ -16,6 +16,14 @@ import model.User;
  * @author Margot
  *
  */
+/**
+ * @author Margot
+ *
+ */
+/**
+ * @author Margot
+ *
+ */
 public class AccesDB {
 
 	/**
@@ -122,11 +130,12 @@ public class AccesDB {
 			PreparedStatement ps = c.prepareStatement(req);
 			ps.setString(1, pseudo);
 			ResultSet rs = ps.executeQuery();
-			rs.next();
-			user.setPseudo(pseudo);
-			user.setNom(rs.getString(3));
-			user.setPrenom(rs.getString(4));
-			user.setMail(rs.getString(6));
+			if (rs.next()) {
+				user.setPseudo(pseudo);
+				user.setNom(rs.getString(3));
+				user.setPrenom(rs.getString(4));
+				user.setMail(rs.getString(6));
+			}
 		} catch (SQLException e) {
 			System.out.println("erreur lors de la récupération des données de l'user en base : " + e);
 		}
@@ -199,7 +208,7 @@ public class AccesDB {
 			System.out.println("erreur lors de la suppresion du lien d'amitié en base : " + e);
 		}
 	}
-	
+
 	/**
 	 * Supprime le lien d'amitié entre l'utilisateur et un ami choisi en base
 	 * 
@@ -216,6 +225,30 @@ public class AccesDB {
 		} catch (SQLException e) {
 			System.out.println("erreur lors de l'insertion du lien d'amitié en base : " + e);
 		}
+	}
+
+	/**
+	 * Méthode qui permet de savoir si la personne 1 a ajouté la personne 2
+	 * 
+	 * @param user1
+	 * @param user2
+	 * @return booléen d'amitié ou non
+	 */
+	public static boolean findFriendship(final User user1, final User user2) {
+		Boolean friendship = false;
+		try {
+			String req = "select * from est_ami where pseudo1=? and pseudo2=?";
+			PreparedStatement ps = c.prepareStatement(req);
+			ps.setString(1, user1.getPseudo());
+			ps.setString(2, user2.getPseudo());
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+				friendship = true;
+			}
+		} catch (SQLException e) {
+			System.out.println("erreur lors de la recherche du lien d'amitié en base : " + e);
+		}
+		return friendship;
 	}
 
 }

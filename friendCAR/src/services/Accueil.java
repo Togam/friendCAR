@@ -31,7 +31,8 @@ public class Accueil {
 	@GET
 	@Produces("text/html")
 	public String pageAccueil() throws SQLException {
-		return displayHeader() + displayAddStatut() + displayListStatut() + displayFriends() + displayNotFriends();
+		return displayHeader() + displayAddStatut() + displayListStatut() + displayResearchTool() + displayFriends()
+				+ displayNotFriends();
 	}
 
 	/**
@@ -101,7 +102,8 @@ public class Accueil {
 		} else {
 			for (User friend : listFriends) {
 				str += "<tr><td><input type=\"text\" name=\"idFriend\" value=\"" + friend.getPseudo()
-					+ "\" hidden /><b>" + friend.getPseudo() + " : </b>" + friend.getNom() + " " + friend.getPrenom()
+						+ "\" hidden /><b>" + friend.getPseudo() + " : </b>" + friend.getNom() + " "
+						+ friend.getPrenom()
 						+ "</td><td><td><input type=\"submit\" name=\"idFriend\" value=\"-\" \n /></td><tr>";
 				// TODO : last co
 				// TODO : en ligne / hors ligne
@@ -128,11 +130,25 @@ public class Accueil {
 		} else {
 			for (User notFriend : listNotFriends) {
 				str += "<tr><td><input type=\"text\" name=\"idFriend\" value=\"" + notFriend.getPseudo()
-					+ "\" hidden /><b>" + notFriend.getPseudo() + " : </b>" + notFriend.getNom() + " "
+						+ "\" hidden /><b>" + notFriend.getPseudo() + " : </b>" + notFriend.getNom() + " "
 						+ notFriend.getPrenom() + "</td><td><input type=\"submit\" value=\"+\" \n /></td></tr>";
 			}
 		}
 		str += "</table></form>";
 		return str;
 	}
+
+	/**
+	 * Module de recherche d'un ami par son pseudo
+	 * 
+	 * @return la barre de recherche
+	 * @throws SQLException
+	 */
+	@Produces("text/html")
+	public String displayResearchTool() throws SQLException {
+		return "<form action=\"accueil/recherche\" method=\"POST\">"
+				+ "<label for=\"pseudo\">Pseudo d'un geek : </label><input name=\"pseudo\" type=\"text\" id=\"pseudo\" />"
+				+ "<input type=\"submit\" value=\"Rerchercher\" /> </form>";
+	}
+
 }
